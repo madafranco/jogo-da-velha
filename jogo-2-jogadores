@@ -24,7 +24,8 @@ class JogoDaVelha:
         return False
 
     def verificar_tabuleiro(self):
-        # verificando as verticais
+
+        #verificando as verticais
         if self.tabuleiro["7"] == self.tabuleiro["4"] == self.tabuleiro["1"] != " ":
             return self.tabuleiro["7"]
         if self.tabuleiro["8"] == self.tabuleiro["5"] == self.tabuleiro["2"] != " ":
@@ -32,7 +33,7 @@ class JogoDaVelha:
         if self.tabuleiro["9"] == self.tabuleiro["6"] == self.tabuleiro["3"] != " ":
             return self.tabuleiro["9"]
 
-        # verificando as horizontais
+        #verificando as horizontais
         if self.tabuleiro["7"] == self.tabuleiro["8"] == self.tabuleiro["9"] != " ":
             return self.tabuleiro["7"]
         if self.tabuleiro["4"] == self.tabuleiro["5"] == self.tabuleiro["6"] != " ":
@@ -40,17 +41,17 @@ class JogoDaVelha:
         if self.tabuleiro["1"] == self.tabuleiro["2"] == self.tabuleiro["3"] != " ":
             return self.tabuleiro["1"]
 
-        # verificando as diagonais
+        #verificando as diagonais
         if self.tabuleiro["7"] == self.tabuleiro["5"] == self.tabuleiro["3"] != " ":
             return self.tabuleiro["7"]
         if self.tabuleiro["1"] == self.tabuleiro["5"] == self.tabuleiro["9"] != " ":
             return self.tabuleiro["1"]
 
-        # verificando empate
+        #verificando empate
         if [*self.tabuleiro.values()].count(' ') == 0:
             return "empate"
         else:
-            return None
+            eturn [*self.tabuleiro.values()].count(' ')
 
     def jogar(self):
         while True:
