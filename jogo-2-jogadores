@@ -76,7 +76,7 @@ class JogoDaVelha:
                 print("X é o vencedor!")
                 break
 
-            elif estado == "O":
+            if estado == "O":
                 self.exibir_tabuleiro()
                 print("O é o vencedor!")
                 break
