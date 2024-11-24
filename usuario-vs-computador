@@ -99,5 +99,5 @@ class JogoDaVelha:
 
             self.turno = "X" if self.turno == "O" else "O"  # Troca o turno
 
-jogo = JogoDaVelha(jogador_inicial="X")
+jogo = JogoDaVelha()
 jogo.jogar()
