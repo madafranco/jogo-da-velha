@@ -45,7 +45,6 @@ def verificar_tabuleiro():
     # Verificando empate
     if ' ' not in tabuleiro.values():
         return "empate"
-
     return None
 
 def jogar():
@@ -71,17 +70,17 @@ def jogar():
                 print(f"Jogada do {turno} inválida, jogue novamente.")
             tabuleiro[jogada] = turno
 
-        estado = verificar_tabuleiro()
+        vtabuleiro = verificar_tabuleiro()
 
-        if estado == "X":
+        if vtabuleiro == "X":
             exibir_tabuleiro()
             print("X é o vencedor!")
             break
-        if estado == "O":
+        if vtabuleiro == "O":
             exibir_tabuleiro()
             print("O é o vencedor!")
             break
-        if estado == "empate":
+        if vtabuleiro == "empate":
             exibir_tabuleiro()
             print("EMPATE!")
             break
