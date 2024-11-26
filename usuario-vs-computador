@@ -88,7 +88,7 @@ def jogar():
             print("EMPATE!")
             break
 
-        # Alterna o turno
+        #alterna o turno
         turno = "X" if turno == "O" else "O"
 
 
