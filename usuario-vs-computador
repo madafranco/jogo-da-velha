@@ -43,14 +43,12 @@ def verificar_tabuleiro():
     if tabuleiro["1"] == tabuleiro["5"] == tabuleiro["9"] != " ":
         return tabuleiro["1"]
 
-    # Verificando empate
+    #verificando empate
     if ' ' not in tabuleiro.values():
         return "empate"
-
     return None
 
 def jogada_computador():
-   #computador
     return random.choice([pos for pos in tabuleiro.keys() if tabuleiro[pos] == " "])
 
 def jogar():
@@ -70,7 +68,7 @@ def jogar():
         else:
             print(f"Turno do {turno}, o computador está jogando...")
             jogada = jogada_computador()
-            print(f"Computador jogou na posição {jogada}")
+            print(f"Computador jogou {jogada}")
             tabuleiro[jogada] = turno
 
         estado = verificar_tabuleiro()
