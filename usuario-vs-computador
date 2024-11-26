@@ -1,103 +1,95 @@
 import random
 
-class JogoDaVelha:
-    tabuleiro = {'7': ' ', '8': ' ', '9': ' ',
-                 '4': ' ', '5': ' ', '6': ' ',
-                 '1': ' ', '2': ' ', '3': ' '}
+tabuleiro = {'7': ' ', '8': ' ', '9': ' ',
+             '4': ' ', '5': ' ', '6': ' ',
+             '1': ' ', '2': ' ', '3': ' '}
+turno = "X"
 
-    turno = None
+def exibir_tabuleiro():
 
-    def __init__(self, jogador_inicial="X"):
-        self.turno = jogador_inicial
+    print("┌───┬───┬───┐")
+    print(f"│ {tabuleiro['7']} │ {tabuleiro['8']} │ {tabuleiro['9']} │")
+    print("├───┼───┼───┤")
+    print(f"│ {tabuleiro['4']} │ {tabuleiro['5']} │ {tabuleiro['6']} │")
+    print("├───┼───┼───┤")
+    print(f"│ {tabuleiro['1']} │ {tabuleiro['2']} │ {tabuleiro['3']} │")
+    print("└───┴───┴───┘")
 
-    def exibir_tabuleiro(self):
-        print("┌───┬───┬───┐")
-        print(f"│ {self.tabuleiro['7']} │ {self.tabuleiro['8']} │ {self.tabuleiro['9']} │")
-        print("├───┼───┼───┤")
-        print(f"│ {self.tabuleiro['4']} │ {self.tabuleiro['5']} │ {self.tabuleiro['6']} │")
-        print("├───┼───┼───┤")
-        print(f"│ {self.tabuleiro['1']} │ {self.tabuleiro['2']} │ {self.tabuleiro['3']} │")
-        print("└───┴───┴───┘")
+def verificar_jogada(jogada):
 
-    def verificar_jogada(self, jogada):
-        if jogada in self.tabuleiro.keys():
-            if self.tabuleiro[jogada] == " ":
-                return True
-        return False
+    return jogada in tabuleiro.keys() and tabuleiro[jogada] == " "
 
-    def verificar_tabuleiro(self):
-        # verificando as verticais
-        if self.tabuleiro["7"] == self.tabuleiro["4"] == self.tabuleiro["1"] != " ":
-            return self.tabuleiro["7"]
-        if self.tabuleiro["8"] == self.tabuleiro["5"] == self.tabuleiro["2"] != " ":
-            return self.tabuleiro["8"]
-        if self.tabuleiro["9"] == self.tabuleiro["6"] == self.tabuleiro["3"] != " ":
-            return self.tabuleiro["9"]
+def verificar_tabuleiro():
 
-        # verificando as horizontais
-        if self.tabuleiro["7"] == self.tabuleiro["8"] == self.tabuleiro["9"] != " ":
-            return self.tabuleiro["7"]
-        if self.tabuleiro["4"] == self.tabuleiro["5"] == self.tabuleiro["6"] != " ":
-            return self.tabuleiro["4"]
-        if self.tabuleiro["1"] == self.tabuleiro["2"] == self.tabuleiro["3"] != " ":
-            return self.tabuleiro["1"]
+    #verificando as verticais
+    if tabuleiro["7"] == tabuleiro["4"] == tabuleiro["1"] != " ":
+        return tabuleiro["7"]
+    if tabuleiro["8"] == tabuleiro["5"] == tabuleiro["2"] != " ":
+        return tabuleiro["8"]
+    if tabuleiro["9"] == tabuleiro["6"] == tabuleiro["3"] != " ":
+        return tabuleiro["9"]
 
-        # verificando as diagonais
-        if self.tabuleiro["7"] == self.tabuleiro["5"] == self.tabuleiro["3"] != " ":
-            return self.tabuleiro["7"]
-        if self.tabuleiro["1"] == self.tabuleiro["5"] == self.tabuleiro["9"] != " ":
-            return self.tabuleiro["1"]
+    #verificando as horizontais
+    if tabuleiro["7"] == tabuleiro["8"] == tabuleiro["9"] != " ":
+        return tabuleiro["7"]
+    if tabuleiro["4"] == tabuleiro["5"] == tabuleiro["6"] != " ":
+        return tabuleiro["4"]
+    if tabuleiro["1"] == tabuleiro["2"] == tabuleiro["3"] != " ":
+        return tabuleiro["1"]
 
-        # verificando empate
-        if [*self.tabuleiro.values()].count(' ') == 0:
-            return "empate"
+    #verificando as diagonais
+    if tabuleiro["7"] == tabuleiro["5"] == tabuleiro["3"] != " ":
+        return tabuleiro["7"]
+    if tabuleiro["1"] == tabuleiro["5"] == tabuleiro["9"] != " ":
+        return tabuleiro["1"]
+
+    # Verificando empate
+    if ' ' not in tabuleiro.values():
+        return "empate"
+
+    return None
+
+def jogada_computador():
+   #computador
+    return random.choice([pos for pos in tabuleiro.keys() if tabuleiro[pos] == " "])
+
+def jogar():
+
+    global turno
+    while True:
+        exibir_tabuleiro()
+
+        if turno == "O":
+            print(f"Turno do {turno}, qual sua jogada?")
+            while True:
+                jogada = input("Jogada: ")
+                if verificar_jogada(jogada):
+                    break
+                print(f"Jogada do {turno} inválida, jogue novamente.")
+            tabuleiro[jogada] = turno
         else:
-            [*self.tabuleiro.values()].count(' ')
+            print(f"Turno do {turno}, o computador está jogando...")
+            jogada = jogada_computador()
+            print(f"Computador jogou na posição {jogada}")
+            tabuleiro[jogada] = turno
 
-    def jogada_computador(self):
-        while True:
-            jogada = random.choice(list(self.tabuleiro.keys()))
-            if self.tabuleiro[jogada] == " ":
-                return jogada
+        estado = verificar_tabuleiro()
 
-    def jogar(self):
-        while True:
-            self.exibir_tabuleiro()
+        if estado == "X":
+            exibir_tabuleiro()
+            print("X é o vencedor!")
+            break
+        if estado == "O":
+            exibir_tabuleiro()
+            print("O é o vencedor!")
+            break
+        if estado == "empate":
+            exibir_tabuleiro()
+            print("EMPATE!")
+            break
 
-            if self.turno == "O":
-                print(f"Turno do {self.turno}, qual sua jogada?")
-                while True:
-                    jogada = input("Jogada: ")
-                    if self.verificar_jogada(jogada):
-                        break
-                    else:
-                        print(f"Jogada do {self.turno} inválida, jogue novamente.")
-                self.tabuleiro[jogada] = self.turno
-            else:
-                # Quando for a vez do computador
-                print(f"Turno do {self.turno}, o computador está jogando...")
-                jogada = self.jogada_computador()
-                print(f"Computador jogou na posição {jogada}")
-                self.tabuleiro[jogada] = self.turno
+        # Alterna o turno
+        turno = "X" if turno == "O" else "O"
 
-            estado = self.verificar_tabuleiro()
 
-            if estado == "X":
-                self.exibir_tabuleiro()
-                print("X é o vencedor!")
-                break
-
-            if estado == "O":
-                self.exibir_tabuleiro()
-                print("O é o vencedor!")
-                break
-
-            if estado == "empate":
-                self.exibir_tabuleiro()
-                print("EMPATE!")
-                break
-
-            self.turno = "X" if self.turno == "O" else "O"  # Troca o turno
-
-jogo = JogoDaVelha()
-jogo.jogar()
+jogar()
